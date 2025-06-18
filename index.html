@@ -160,18 +160,18 @@
         }
 
         .dashboard-container header h1 { /* H1 fra del 1 header */
-            font-size: 1.5rem; /* md:text-2xl */
+            font-size: 1.8rem; /* Økt fra 1.5rem for bedre lesbarhet */
             font-weight: 700;
             color: var(--global-color-text-white);
             margin-bottom: 0.5rem; /* Original mb-0.5 */
         }
         .dashboard-container header p { /* P fra del 1 header */
             color: var(--color-text-info); /* slate-400 */
-            font-size: 0.75rem; /* text-xs */
+            font-size: 0.875rem; /* Økt fra 0.75rem for bedre lesbarhet */
         }
 
         .dashboard-container h2 { /* H2 for "Input", "Resultater" i del 1/2 */
-            font-size: 1rem; /* text-base */
+            font-size: 1.15rem; /* Økt fra 1rem for bedre lesbarhet */
             font-weight: 600;
             color: var(--global-color-text-white);
             border-bottom: 1px solid var(--color-border); /* --border-color fra original */
@@ -179,7 +179,7 @@
             margin-bottom: 0.25rem; /* mb-1 */
         }
         .dashboard-container h3 { /* H3 for "Eiendeler", "Privat", "AS" i del 1/2 */
-            font-size: 0.875rem; /* text-sm */
+            font-size: 1rem; /* Økt fra 0.875rem for bedre lesbarhet */
             font-weight: 600;
             color: var(--global-color-text-white);
             border-bottom: 1px solid var(--color-border); /* --border-color fra original */
@@ -190,13 +190,13 @@
 
         /* Stil for hovedresultatverdiene */
         .dashboard-container .output-value {
-            font-size: 1.8rem; /* Original verdi */
+            font-size: 2rem; /* Økt fra 1.8rem for bedre lesbarhet */
             font-weight: 700;
             color: var(--color-accent-vibrant); /* --accent-blue-vibrant fra original */
             word-break: break-word;
         }
         .dashboard-container .output-label {
-            font-size: 0.75rem; /* Original verdi */
+            font-size: 0.875rem; /* Økt fra 0.75rem for bedre lesbarhet */
             color: var(--color-text-medium); /* --medium-text fra original */
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -208,10 +208,10 @@
             background-color: var(--color-input-bg); /* slate-800 fra original */
             border: 1px solid var(--color-border); /* --border-color fra original */
             border-radius: 0.25rem;
-            padding: 0.1rem 0.2rem; /* Original padding */
+            padding: 0.2rem 0.4rem; /* Økt fra 0.1rem 0.2rem for bedre lesbarhet */
             color: var(--color-text-light); /* --light-text fra original */
             width: 100%;
-            font-size: 0.6rem; /* Original fontstørrelse */
+            font-size: 0.75rem; /* Økt fra 0.6rem for bedre lesbarhet */
         }
         .dashboard-container input[type="text"].asset-input:focus {
             outline: none;
@@ -254,7 +254,7 @@
         }
         /* Stil for slider verdi display */
         .dashboard-container .slider-value { /* Dette er span'et for slider-verdien i del 1 */
-            font-size: 0.75rem; /* text-xs */
+            font-size: 0.875rem; /* Økt fra 0.75rem for bedre lesbarhet */
             font-weight: 600;
             color: var(--color-accent-light); /* --accent-blue-light fra original */
             text-align: right;
@@ -268,9 +268,9 @@
             background-color: var(--color-person-btn-inactive); /* slate-700 fra original */
             color: var(--color-person-btn-inactive-text); /* slate-300 fra original */
             font-weight: 600;
-            padding: 0.125rem 0.375rem; /* py-0.5 px-1.5 */
-            border-radius: 0.375rem; /* rounded-md */
-            font-size: 0.75rem; /* text-xs */
+            padding: 0.375rem 0.75rem; /* Økt fra 0.125rem 0.375rem for større knapper */
+            border-radius: 0.5rem; /* Økt fra 0.375rem */
+            font-size: 0.875rem; /* Økt fra 0.75rem for større tekst */
             transition: background-color 0.2s, color 0.2s;
             box-shadow: none; /* Ingen skygge på disse knappene */
         }
@@ -286,22 +286,22 @@
         }
         .dashboard-container .text-center.bg-slate-900\/80 {
             background-color: rgba(15, 23, 42, 0.8); /* Original rgba(0,0,0,0.8) for mørk blokk */
-            padding: 1rem; /* p-4 */
+            padding: 1.25rem; /* Økt fra 1rem */
             border-radius: 0.5rem; /* rounded-lg */
-            margin-bottom: 0.5rem; /* mb-2 */
+            margin-bottom: 0.75rem; /* Økt fra 0.5rem */
         }
         .dashboard-container .text-center.bg-slate-900\/80 .output-value {
-            font-size: 1.5rem; /* text-2xl */
+            font-size: 2.25rem; /* Økt fra 1.5rem */
         }
         .dashboard-container .text-center.bg-slate-900\/80 .output-label {
-            margin-top: 0.25rem; /* mt-1 */
-            font-size: 1rem; /* text-base */
+            margin-top: 0.5rem; /* Økt fra 0.25rem */
+            font-size: 1.15rem; /* Økt fra 1rem */
         }
         .dashboard-container .space-y-1\.5.bg-slate-800\/60 { /* For detaljresultatene på side 1 */
             background-color: rgba(30, 41, 59, 0.6); /* Original rgba(0,0,0,0.6) */
-            padding: 0.75rem; /* p-3 */
+            padding: 0.875rem; /* Økt from 0.75rem */
             border-radius: 0.5rem; /* rounded-lg */
-            font-size: 0.875rem; /* text-sm */
+            font-size: 1rem; /* Økt fra 0.875rem */
         }
         .dashboard-container hr.border-\[var\(--border-color\)\] {
             border-color: var(--color-border); /* --border-color fra original */
@@ -310,32 +310,32 @@
         /* Stil for tabeller på Side 2 */
         .dashboard-container .rate-table-container {
             background-color: var(--color-card-bg); /* --card-bg fra original */
-            padding: 0.4rem;
+            padding: 0.5rem; /* Økt fra 0.4rem */
             border-radius: 0.75rem;
-            margin-bottom: 0.5rem; /* mb-2 */
+            margin-bottom: 0.75rem; /* Økt fra 0.5rem */
         }
         .dashboard-container .rate-table-as {
             background-color: var(--color-table-as-bg); /* Original spesifikk farge */
         }
         .dashboard-container .rate-table-header {
             display: grid;
-            grid-template-columns: minmax(65px, 1.5fr) repeat(4, minmax(40px, 1fr));
-            gap: 0.2rem;
+            grid-template-columns: minmax(75px, 1.5fr) repeat(4, minmax(50px, 1fr)); /* Justert bredde */
+            gap: 0.3rem; /* Økt fra 0.2rem */
             color: var(--color-text-medium); /* --medium-text fra original */
             font-weight: 600;
-            padding-bottom: 0.2rem;
+            padding-bottom: 0.3rem; /* Økt fra 0.2rem */
             border-bottom: 1px solid var(--color-border); /* --border-color fra original */
-            font-size: 0.65rem;
+            font-size: 0.75rem; /* Økt fra 0.65rem */
             text-align: right;
         }
         .dashboard-container .rate-table-header > div:first-child { text-align: left; }
         .dashboard-container .rate-table-row {
             display: grid;
-            grid-template-columns: minmax(65px, 1.5fr) repeat(4, minmax(40px, 1fr));
-            gap: 0.2rem;
-            padding: 0.25rem 0;
+            grid-template-columns: minmax(75px, 1.5fr) repeat(4, minmax(50px, 1fr)); /* Justert bredde */
+            gap: 0.3rem; /* Økt fra 0.2rem */
+            padding: 0.375rem 0; /* Økt fra 0.25rem */
             border-bottom: 1px solid var(--color-border); /* --border-color fra original */
-            font-size: 0.65rem;
+            font-size: 0.75rem; /* Økt fra 0.65rem */
         }
         .dashboard-container .rate-table-row:last-child { border-bottom: none; }
         .dashboard-container .rate-table-row-label {
@@ -345,12 +345,12 @@
         }
         .dashboard-container .rate-table-cell { text-align: right; }
         .dashboard-container .rate-table-final-row {
-            font-size: 0.7rem;
+            font-size: 0.8rem; /* Økt fra 0.7rem */
             font-weight: 700;
             color: var(--global-color-text-white);
             background-color: rgba(0, 0, 0, 0.2);
-            margin: 0 -0.4rem;
-            padding: 0.3rem 0.4rem;
+            margin: 0 -0.5rem; /* Justert margin */
+            padding: 0.4rem 0.5rem; /* Justert padding */
         }
 
         /* Knapper for side 1/2 (spesifikk stil fra original kode) */
@@ -412,7 +412,7 @@
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        .page3-panel .section-title { /* Seksjonstitler som "Alminnelig Inntektsberegning" */
+        .page3-panel .section-title { /* Seksjonstitler som "Inntektsberegning" */
             font-size: 1.3rem;
             font-weight: 600;
             color: var(--color-accent-light); /* Blå farge for seksjonstitler */
@@ -667,21 +667,21 @@
             .page { min-height: auto; max-width: none; } /* Lar .page fylle 100% bredde */
 
             .dashboard-container header h1 { font-size: 1.5rem; }
-            .dashboard-container h2 { font-size: 0.9rem; }
-            .dashboard-container h3 { font-size: 0.8rem; }
-            .dashboard-container .output-value { font-size: 1.5rem; }
-            .dashboard-container .output-label { font-size: 0.65rem; }
+            .dashboard-container h2 { font-size: 1rem; }
+            .dashboard-container h3 { font-size: 0.9rem; }
+            .dashboard-container .output-value { font-size: 1.8rem; } /* Justert */
+            .dashboard-container .output-label { font-size: 0.75rem; } /* Justert */
             .dashboard-container input[type="text"] { padding: 0.2rem 0.4rem; font-size: 0.7rem; }
             .dashboard-container input[type="range"] { height: 3px; }
             .dashboard-container input[type="range"]::-webkit-slider-thumb,
             .dashboard-container input[type="range"]::-moz-range-thumb { width: 10px; height: 10px; margin-top: -3.5px; }
-            .dashboard-container .slider-value { font-size: 0.7rem; }
-            .dashboard-container .person-btn { padding: 0.2rem 0.6rem; font-size: 0.7rem; }
-            .dashboard-container button { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+            .dashboard-container .slider-value { font-size: 0.8rem; } /* Justert */
+            .dashboard-container .person-btn { padding: 0.2rem 0.6rem; font-size: 0.8rem; } /* Justert */
+            .dashboard-container button { padding: 0.5rem 0.75rem; font-size: 0.875rem; } /* Justert */
 
-            .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.6rem; gap: 0.2rem; }
+            .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.7rem; gap: 0.2rem; } /* Justert */
             .dashboard-container .rate-table-container { padding: 0.3rem; }
-            .dashboard-container .rate-table-final-row { font-size: 0.7rem; margin: 0 -0.5rem; padding: 0.3rem 0.4rem; }
+            .dashboard-container .rate-table-final-row { font-size: 0.8rem; margin: 0 -0.5rem; padding: 0.3rem 0.4rem; } /* Justert */
 
             .page3-panel h1, .page3-panel h2, .page4-container h1 { font-size: 1.5rem; }
             .page3-panel .section-title { font-size: 1.1rem; }
@@ -705,23 +705,23 @@
             #page3-layout { padding: 0.2rem; }
             .page3-panel, .page4-container { padding: 0.75rem; margin: 0; border-radius: 0.5rem; }
 
-            .dashboard-container header h1 { font-size: 1.2rem; margin-bottom: 0.25rem; }
-            .dashboard-container header p { font-size: 0.65rem; }
-            .dashboard-container h2 { font-size: 0.8rem; padding-bottom: 0.125rem; margin-bottom: 0.125rem; }
-            .dashboard-container h3 { font-size: 0.7rem; padding-bottom: 0.125rem; margin-top: 0.25rem; margin-bottom: 0.125rem; }
-            .dashboard-container .output-value { font-size: 1.2rem; }
-            .dashboard-container .output-label { font-size: 0.55rem; }
-            .dashboard-container input[type="text"] { padding: 0.05rem 0.1rem; font-size: 0.55rem; }
+            .dashboard-container header h1 { font-size: 1.3rem; margin-bottom: 0.25rem; } /* Justert */
+            .dashboard-container header p { font-size: 0.75rem; } /* Justert */
+            .dashboard-container h2 { font-size: 0.9rem; padding-bottom: 0.125rem; margin-bottom: 0.125rem; } /* Justert */
+            .dashboard-container h3 { font-size: 0.8rem; padding-bottom: 0.125rem; margin-top: 0.25rem; margin-bottom: 0.125rem; } /* Justert */
+            .dashboard-container .output-value { font-size: 1.5rem; } /* Justert */
+            .dashboard-container .output-label { font-size: 0.65rem; } /* Justert */
+            .dashboard-container input[type="text"] { padding: 0.1rem 0.2rem; font-size: 0.65rem; } /* Justert */
             .dashboard-container input[type="range"] { height: 1.5px; }
             .dashboard-container input[type="range"]::-webkit-slider-thumb,
             .dashboard-container input[type="range"]::-moz-range-thumb { width: 8px; height: 8px; margin-top: -3.25px; }
-            .dashboard-container .slider-value { font-size: 0.65rem; }
-            .dashboard-container .person-btn { padding: 0.1rem 0.25rem; font-size: 0.65rem; }
+            .dashboard-container .slider-value { font-size: 0.75rem; } /* Justert */
+            .dashboard-container .person-btn { padding: 0.15rem 0.3rem; font-size: 0.75rem; } /* Justert */
             .dashboard-container button { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
 
-            .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.55rem; gap: 0.1rem; }
+            .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.65rem; gap: 0.1rem; } /* Justert */
             .dashboard-container .rate-table-container { padding: 0.2rem; }
-            .dashboard-container .rate-table-final-row { font-size: 0.6rem; margin: 0 -0.2rem; padding: 0.2rem 0.3rem; }
+            .dashboard-container .rate-table-final-row { font-size: 0.7rem; margin: 0 -0.2rem; padding: 0.2rem 0.3rem; } /* Justert */
 
             .page3-panel h1, .page3-panel h2, .page4-container h1 { font-size: 1.2rem; margin-bottom: 1rem; }
             .page3-panel .section-title { font-size: 0.9rem; margin-bottom: 0.75rem; padding-bottom: 0.25rem; }
@@ -758,8 +758,8 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 flex-grow overflow-hidden">
                         <!-- Kolonne 1: Input -->
                         <div class="lg:col-span-1 space-y-1.5 flex flex-col overflow-hidden">
-                            <div class="bg-[var(--card-bg)] p-2 rounded-xl h-full flex flex-col overflow-hidden">
-                                <h2 class="text-base font-semibold text-white border-b border-[#364A6E] pb-1 mb-1">Input</h2>
+                            <div class="bg-[var(--color-card-bg)] p-2 rounded-xl h-full flex flex-col overflow-hidden">
+                                <h2 class="text-base font-semibold text-white border-b border-[var(--color-border)] pb-1 mb-1">Input</h2>
                                 <div class="space-y-1.5 flex-grow overflow-hidden">
                                     <div>
                                         <label class="block text-xs font-medium text-slate-300 mb-0.5">Antall personer</label>
@@ -773,7 +773,7 @@
                                         <input type="text" id="private-debt" class="asset-input mt-0.5" value="5 000 000" placeholder="0">
                                     </div>
                                 </div>
-                                <h3 class="text-sm font-semibold text-white border-b border-[#364A6E] pb-1 mt-2 mb-1">Eiendeler</h3>
+                                <h3 class="text-sm font-semibold text-white border-b border-[var(--color-border)] pb-1 mt-2 mb-1">Eiendeler</h3>
                                 <div id="assets-container" class="space-y-0.5 flex-grow overflow-y-auto custom-scrollbar">
                                     <!-- Innhold genereres av JS -->
                                 </div>
@@ -782,19 +782,19 @@
 
                         <!-- Kolonne 2: Resultater og navigasjon -->
                         <div class="lg:col-span-1 space-y-1.5 flex flex-col overflow-hidden">
-                            <div class="bg-[var(--card-bg)] p-3 rounded-xl h-full flex flex-col">
-                                <h2 class="text-base font-semibold text-white border-b border-[#364A6E] pb-1 mb-1">Resultater</h2>
+                            <div class="bg-[var(--color-card-bg)] p-3 rounded-xl h-full flex flex-col">
+                                <h2 class="text-base font-semibold text-white border-b border-[var(--color-border)] pb-1 mb-1">Resultater</h2>
                                 <div class="text-center bg-slate-900/80 p-4 rounded-lg mb-2">
                                     <div id="total-wealth-tax" class="output-value text-2xl">0 kr</div>
                                     <div class="output-label mt-1 text-base">Total Formuesskatt</div>
                                 </div>
                                 <div class="space-y-1.5 bg-slate-800/60 p-3 rounded-lg flex-grow text-sm custom-scrollbar overflow-y-auto">
-                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Bruttoformue:</span><span id="gross-wealth" class="font-semibold text-white">0 kr</span></div><hr class="border-[#364A6E]">
-                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Verdsettelsesrabatt:</span><span id="total-discount" class="font-semibold text-white">0 kr</span></div><hr class="border-[#364A6E]">
-                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Nettoformue (etter rabatt):</span><span id="net-wealth" class="font-semibold text-white">0 kr</span></div><hr class="border-[#364A6E]">
-                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fradragsberettiget gjeld:</span><span id="deductible-debt" class="font-semibold text-white">0 kr</span></div><hr class="border-[#364A6E]">
-                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fribeløp:</span><span id="tax-free-allowance" class="font-semibold text-white">0 kr</span></div><hr class="border-[#364A6E]">
-                                    <div class="flex justify-between items-center text-base text-white"><span class="font-medium">Skattegrunnlag:</span><span id="taxable-base" class="font-bold">0 kr</span></div><hr class="border-[#364A6E]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Bruttoformue:</span><span id="gross-wealth" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Verdsettelsesrabatt:</span><span id="total-discount" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Nettoformue (etter rabatt):</span><span id="net-wealth" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fradragsberettiget gjeld:</span><span id="deductible-debt" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fribeløp:</span><span id="tax-free-allowance" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-base text-white"><span class="font-medium">Skattegrunnlag:</span><span id="taxable-base" class="font-bold">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-slate-300 mt-1.5 text-sm"><span>Skatteandel av bruttoformue:</span><span id="tax-as-percentage-of-gross" class="font-semibold text-white">0.00 %</span></div>
                                 </div>
                                 <div class="mt-auto pt-2 text-center">
@@ -819,7 +819,7 @@
                     </header>
 
                     <div class="grid grid-cols-1 flex-grow overflow-hidden">
-                        <div class="bg-[var(--card-bg)] p-2 rounded-xl h-full flex flex-col overflow-hidden">
+                        <div class="bg-[var(--color-card-bg)] p-2 rounded-xl h-full flex flex-col overflow-hidden">
                             <div class="mb-1.5 w-48">
                                 <label for="inflation-rate" class="block text-xs font-medium text-slate-300">Forventet inflasjon (%)</label>
                                 <input type="text" id="inflation-rate" class="asset-input mt-0.5" value="3.0">
