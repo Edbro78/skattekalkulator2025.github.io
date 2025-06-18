@@ -70,7 +70,7 @@
             color: #AAB3C6; /* Mykere grå for etiketter */
             font-weight: 500;
         }
-        .input-group input[type="text"] { /* Endret til type="text" for formatering */
+        .input-group input[type="text"] { /* Styling for tekstfelt (Formuesskatt) */
             background-color: #4A5166; /* Mørkere inputfelt for bedre kontrast */
             border: 1px solid #5C677C; /* Mykere kantlinje */
             padding: 0.8rem 1rem;
@@ -81,10 +81,60 @@
             box-sizing: border-box; /* Inkluder padding i bredden */
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .input-group input[type="text"]:focus { /* Endret til type="text" for formatering */
+        .input-group input[type="text"]:focus {
             outline: none;
             border-color: #6A9BFD; /* Fokusfarge, lysere blå */
             box-shadow: 0 0 0 3px rgba(106, 155, 253, 0.3); /* Fokus-skyggge */
+        }
+        /* Styling for range input (sliders) */
+        .input-group input[type="range"] {
+            -webkit-appearance: none; /* Fjern standard stil */
+            width: 100%;
+            height: 8px; /* Høyde på sporen */
+            background: #5C677C; /* Bakgrunn for sporen */
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+            margin-top: 0.5rem;
+        }
+
+        .input-group input[type="range"]:hover {
+            opacity: 1;
+        }
+
+        .input-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px; /* Størrelse på sirkelen */
+            height: 20px; /* Størrelse på sirkelen */
+            background: #6A9BFD; /* Farge på sirkelen */
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+
+        .input-group input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #6A9BFD;
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+        }
+
+        .input-group input[type="range"]:active::-webkit-slider-thumb,
+        .input-group input[type="range"]:active::-moz-range-thumb {
+            cursor: grabbing;
+            background-color: #5A8AE0;
+        }
+        .slider-value {
+            font-size: 0.9rem;
+            color: #E0E6F0;
+            margin-top: 0.5rem;
+            text-align: right;
         }
 
         /* Knappestyling */
@@ -239,6 +289,14 @@
             #output-panel {
                 min-height: 50vh; /* Minimum høyde for å se innhold */
             }
+            /* Tilpass knappestyling for mindre skjermer */
+            .button-group {
+                flex-direction: column; /* Stabler knapper vertikalt */
+                gap: 1rem; /* Mer avstand mellom knapper */
+            }
+            .button-group button {
+                width: 100%; /* Knapper fyller bredden */
+            }
         }
     </style>
 </head>
@@ -250,22 +308,26 @@
 
             <div class="input-group">
                 <label for="income">Lønn (kr):</label>
-                <input type="text" id="income" value="700 000" data-raw-value="700000" oninput="formatInputNumber(this)">
+                <input type="range" id="income" min="0" max="10000000" step="10000" value="700000" oninput="updateSliderValueDisplay(this)">
+                <span id="income-value" class="slider-value"></span>
             </div>
 
             <div class="input-group">
                 <label for="bankInterestIncome">Renteinntekter (kr):</label>
-                <input type="text" id="bankInterestIncome" value="5 000" data-raw-value="5000" oninput="formatInputNumber(this)">
+                <input type="range" id="bankInterestIncome" min="0" max="10000000" step="1000" value="5000" oninput="updateSliderValueDisplay(this)">
+                <span id="bankInterestIncome-value" class="slider-value"></span>
             </div>
 
             <div class="input-group">
                 <label for="loanInterestExpense">Renteutgifter (kr):</label>
-                <input type="text" id="loanInterestExpense" value="10 000" data-raw-value="10000" oninput="formatInputNumber(this)">
+                <input type="range" id="loanInterestExpense" min="0" max="10000000" step="1000" value="10000" oninput="updateSliderValueDisplay(this)">
+                <span id="loanInterestExpense-value" class="slider-value"></span>
             </div>
 
             <div class="input-group">
                 <label for="stockIncome">Aksjeinntekter / Utbytter (kr):</label>
-                <input type="text" id="stockIncome" value="0" data-raw-value="0" oninput="formatInputNumber(this)">
+                <input type="range" id="stockIncome" min="0" max="20000000" step="10000" value="0" oninput="updateSliderValueDisplay(this)">
+                <span id="stockIncome-value" class="slider-value"></span>
             </div>
 
             <div class="input-group">
@@ -273,7 +335,10 @@
                 <input type="text" id="wealthTaxInput" value="0" data-raw-value="0" oninput="formatInputNumber(this)">
             </div>
 
-            <button onclick="calculateTax()">Beregn Skatt</button>
+            <div class="flex flex-col gap-4">
+                <button onclick="calculateTax()">Beregn Skatt</button>
+                <button onclick="showDetailedTaxPage()">Vis detaljert skatteberegning</button>
+            </div>
         </div>
 
         <!-- Høyre panel for resultater -->
@@ -284,11 +349,6 @@
                 <div class="section-title">Alminnelig Inntektsberegning</div>
                 <div id="general-income-results" class="results-container">
                     <!-- Resultater for alminnelig inntekt fylles her -->
-                </div>
-
-                <div class="section-title mt-6">Detaljert Skatteberegning</div>
-                <div id="detailed-tax-results" class="results-container">
-                    <!-- Detaljerte skatteresultater fylles her -->
                 </div>
 
                 <div id="total-tax-container" class="mt-8">
@@ -349,7 +409,7 @@
             document.getElementById('message-box').classList.remove('flex');
         }
 
-        // --- Hjelpefunksjon for å formatere tall i inputfelt ---
+        // --- Hjelpefunksjon for å formatere tall i inputfelt (kun for tekstfelt som Formuesskatt) ---
         function formatInputNumber(inputElement) {
             // Fjern alle ikke-numeriske tegn unntatt desimalpunkt
             let rawValue = inputElement.value.replace(/[^0-9.]/g, '');
@@ -392,17 +452,28 @@
             inputElement.dataset.rawValue = numericValue;
         }
 
+        // --- Hjelpefunksjon for å oppdatere visningen av sliderverdien ---
+        function updateSliderValueDisplay(sliderElement) {
+            const valueSpan = document.getElementById(sliderElement.id + '-value');
+            const numericValue = parseInt(sliderElement.value);
+            valueSpan.innerText = formatCurrency(numericValue, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+            // Lagre den rene numeriske verdien for beregninger (kun for kompatibilitet hvis nødvendig)
+            sliderElement.dataset.rawValue = numericValue;
+            calculateTax(); // Beregn skatt umiddelbart når slideren endres
+        }
+
 
         // --- Hovedfunksjon for skatteberegning ---
         function calculateTax() {
-            // Hent inputverdier fra data-raw-value attributtet
-            const income = parseFloat(document.getElementById('income').dataset.rawValue) || 0;
-            const bankInterestIncome = parseFloat(document.getElementById('bankInterestIncome').dataset.rawValue) || 0;
-            const loanInterestExpense = parseFloat(document.getElementById('loanInterestExpense').dataset.rawValue) || 0;
-            const stockIncome = parseFloat(document.getElementById('stockIncome').dataset.rawValue) || 0;
-            const wealthTaxInput = parseFloat(document.getElementById('wealthTaxInput').dataset.rawValue) || 0; // Nytt felt for formuesskatt
+            // Hent inputverdier. For sliders, les fra 'value' direkte. For text, les fra data-raw-value.
+            const income = parseInt(document.getElementById('income').value) || 0;
+            const bankInterestIncome = parseInt(document.getElementById('bankInterestIncome').value) || 0;
+            const loanInterestExpense = parseInt(document.getElementById('loanInterestExpense').value) || 0;
+            const stockIncome = parseInt(document.getElementById('stockIncome').value) || 0;
+            const wealthTaxInput = parseFloat(document.getElementById('wealthTaxInput').dataset.rawValue) || 0; // Remains text input
 
-            // Inputvalidering (fortsatt viktig selv med input formatting)
+            // Inputvalidering
             if (income < 0 || bankInterestIncome < 0 || loanInterestExpense < 0 || stockIncome < 0 || wealthTaxInput < 0) {
                 showMessageBox("Alle inntekts- og utgiftsposter må være positive tall.");
                 return;
@@ -410,20 +481,17 @@
 
             // Hent HTML-elementer for output
             const generalIncomeResultsDiv = document.getElementById('general-income-results');
-            const detailedTaxResultsDiv = document.getElementById('detailed-tax-results');
             const totalTaxDiv = document.getElementById('total-tax');
-            const totalTaxPercentageDiv = document.getElementById('total-tax-percentage'); // Nytt element for prosentandel
+            const totalTaxPercentageDiv = document.getElementById('total-tax-percentage');
 
             // Nullstill resultatområder
             generalIncomeResultsDiv.innerHTML = '';
-            detailedTaxResultsDiv.innerHTML = '';
             totalTaxDiv.innerHTML = '';
             totalTaxPercentageDiv.innerHTML = '';
 
             let totalTax = 0;
 
             // --- Beregn alminnelig inntekt ---
-            // Aksjeinntekter/utbytter inngår IKKE i alminnelig inntekt for personlig skattlegging
             let bruttoAlminneligInntekt = income + bankInterestIncome;
 
             // Minstefradrag
@@ -436,7 +504,11 @@
             // Vis resultater for alminnelig inntekt
             appendResult(generalIncomeResultsDiv, 'Lønn og naturalytelser', formatCurrency(income));
             appendResult(generalIncomeResultsDiv, 'Renteinntekter', formatCurrency(bankInterestIncome));
-            appendResult(generalIncomeResultsDiv, 'SUM ØVRIGE INNTEKTER (Brutto)', formatCurrency(income + bankInterestIncome), true);
+            // Vis aksjeinntekten her for fullstendig oversikt over bruttoinntekter
+            if (stockIncome > 0) {
+                appendResult(generalIncomeResultsDiv, 'Aksjeinntekter / Utbytter', formatCurrency(stockIncome));
+            }
+            appendResult(generalIncomeResultsDiv, 'SUM ØVRIGE INNTEKTER (Brutto)', formatCurrency(income + bankInterestIncome + stockIncome), true); // Inkluder aksjeinntekter i total brutto
             appendResult(generalIncomeResultsDiv, 'Minstefradrag', formatCurrency(-minstefradrag));
             appendResult(generalIncomeResultsDiv, 'Renteutgifter', formatCurrency(-loanInterestExpense));
             appendResult(generalIncomeResultsDiv, 'Alminnelig inntekt (før personfradrag)', formatCurrency(bruttoAlminneligInntekt));
@@ -444,7 +516,7 @@
             // Trekk fra personfradrag for å finne skattbar alminnelig inntekt
             let skattbarAlminneligInntekt = bruttoAlminneligInntekt - TAX_RATES_2025.personfradrag_belop;
             if (skattbarAlminneligInntekt < 0) {
-                skattbarAlminneligInntekt = 0; // Kan ikke ha negativ skattbar inntekt
+                skattbarAlminneligInntekt = 0;
             }
             appendResult(generalIncomeResultsDiv, 'Personfradrag', formatCurrency(-TAX_RATES_2025.personfradrag_belop));
             appendResult(generalIncomeResultsDiv, 'ALMINNELIG INNTEKT (skattbar)', formatCurrency(skattbarAlminneligInntekt), true);
@@ -452,7 +524,6 @@
 
             // --- Beregn Skatt på alminnelig inntekt (22%) ---
             const skattAlminneligInntekt = skattbarAlminneligInntekt * TAX_RATES_2025.alminnelig_inntekt_sats;
-            appendResult(detailedTaxResultsDiv, 'Inntektsskatt til Stat, kommune og fylke (22%)', formatCurrency(skattAlminneligInntekt));
             totalTax += skattAlminneligInntekt;
 
             // --- Beregn Trygdeavgift ---
@@ -461,13 +532,12 @@
                 trygdeavgiftGrunnlag = 0;
             }
             const trygdeavgift = trygdeavgiftGrunnlag * TAX_RATES_2025.trygdeavgift_sats;
-            // Oppdatert tekst for trygdeavgift
-            appendResult(detailedTaxResultsDiv, `Trygdeavgift av lønnsinntekt (${(TAX_RATES_2025.trygdeavgift_sats * 100).toFixed(1)}%)`, formatCurrency(trygdeavgift));
             totalTax += trygdeavgift;
 
             // --- Beregn Trinnskatt ---
             let trinnskatt = 0;
-            let resterendeInntektForTrinnskatt = income; // Trinnskatt beregnes av brutto lønnsinntekt
+            let trinnskattDetails = []; // For storing details to pass to the next page
+            let resterendeInntektForTrinnskatt = income;
 
             for (let i = 0; i < TAX_RATES_2025.trinnskatt_trinn.length; i++) {
                 const trinn = TAX_RATES_2025.trinnskatt_trinn[i];
@@ -487,51 +557,75 @@
                 const skattForTrinn = skattepliktigIPassendeTrinn * trinn.sats;
                 trinnskatt += skattForTrinn;
 
-                // For visning i UI
-                if (skattForTrinn > 0.01) { // Vis kun trinn med faktisk skatt
-                     // Legg til en ekstra sjekk for trinn 0 (0% sats) for å unngå visning
-                    if (trinn.sats > 0) {
-                        appendResult(detailedTaxResultsDiv, `Trinnskatt Trinn ${i + 1} (${(trinn.sats * 100).toFixed(1)}%)`, formatCurrency(skattForTrinn));
-                    }
+                if (skattForTrinn > 0.01 && trinn.sats > 0) {
+                    trinnskattDetails.push({
+                        label: `Trinnskatt Trinn ${i + 1} (${(trinn.sats * 100).toFixed(1)}%)`,
+                        amount: skattForTrinn
+                    });
                 }
             }
-
-            appendResult(detailedTaxResultsDiv, 'Trinnskatt av personinntekt (total)', formatCurrency(trinnskatt));
-            totalTax += trinnskatt;
-
-            // Nytt: Vis prosentandel av brutto lønn for trinnskatt
-            if (income > 0) {
+            // Add total trinnskatt to details as well
+            if (trinnskatt > 0) {
+                 trinnskattDetails.push({
+                    label: 'Trinnskatt av personinntekt (total)',
+                    amount: trinnskatt,
+                    isTotal: true
+                });
+            }
+            // Add percentage of gross income for trinnskatt
+            if (income > 0 && trinnskatt > 0) {
                 const trinnskattPercentageOfIncome = (trinnskatt / income) * 100;
-                appendResult(detailedTaxResultsDiv, `Trinnskatt totalt (% av brutto lønn)`, `${trinnskattPercentageOfIncome.toFixed(1)}%`);
+                trinnskattDetails.push({
+                    label: `Trinnskatt totalt (% av brutto lønn)`,
+                    value: `${trinnskattPercentageOfIncome.toFixed(1)}%`,
+                    isPercentage: true
+                });
             }
 
+
+            totalTax += trinnskatt;
 
             // --- Beregn skatt på aksjeinntekter/utbytter ---
             const aksjeinntektSkatt = stockIncome * TAX_RATES_2025.aksjeinntekt_skattesats;
-            if (stockIncome > 0) { // Vis kun hvis det er aksjeinntekter
-                appendResult(generalIncomeResultsDiv, 'Aksjeinntekter / Utbytter', formatCurrency(stockIncome)); // Viser aksjeinntekten under alminnelig inntekt også
-                appendResult(detailedTaxResultsDiv, `Aksjeinntektsskatt (37.8%)`, formatCurrency(aksjeinntektSkatt));
+            if (stockIncome > 0) {
                 totalTax += aksjeinntektSkatt;
             }
 
             // --- Legg til manuell formuesskatt ---
             if (wealthTaxInput > 0) {
-                appendResult(detailedTaxResultsDiv, 'Formuesskatt (egen innfylling)', formatCurrency(wealthTaxInput));
                 totalTax += wealthTaxInput;
             }
 
-            // --- Vis total skatt med ny design og prosentandel ---
-            // Formater total skatt uten desimaler
+            // --- Vis total skatt på hovedsiden ---
             totalTaxDiv.innerHTML = formatCurrency(totalTax, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             document.getElementById('total-tax-label').innerText = 'TOTAL SKATT OG AVGIFT';
 
-            // Beregn og vis prosentandel av brutto lønn for total skatt
             if (income > 0) {
                 const totalPercentageOfIncome = (totalTax / income) * 100;
                 totalTaxPercentageDiv.innerText = `${totalPercentageOfIncome.toFixed(1)}% av brutto lønn`;
             } else {
-                totalTaxPercentageDiv.innerText = ''; // Skjul hvis ingen lønn
+                totalTaxPercentageDiv.innerText = '';
             }
+
+            // --- Lagre alle resultater i localStorage for detaljert visning ---
+            const taxResults = {
+                income: income,
+                bankInterestIncome: bankInterestIncome,
+                loanInterestExpense: loanInterestExpense,
+                stockIncome: stockIncome,
+                wealthTaxInput: wealthTaxInput,
+                minstefradrag: minstefradrag,
+                bruttoAlminneligInntekt: bruttoAlminneligInntekt,
+                skattbarAlminneligInntekt: skattbarAlminneligInntekt,
+                skattAlminneligInntekt: skattAlminneligInntekt,
+                trygdeavgift: trygdeavgift,
+                trinnskatt: trinnskatt,
+                trinnskattDetails: trinnskattDetails, // Detailed trinnskatt breakdown
+                aksjeinntektSkatt: aksjeinntektSkatt,
+                totalTax: totalTax,
+                totalPercentageOfIncome: income > 0 ? (totalTax / income) * 100 : 0
+            };
+            localStorage.setItem('taxCalculationResults', JSON.stringify(taxResults));
         }
 
         // Hjelpefunksjon for å formatere valuta med 1000-separatorer og valgfri desimal
@@ -559,15 +653,26 @@
             parentDiv.appendChild(item);
         }
 
-        // Initial formatering av inputfelt ved lasting av siden
+        // Funksjon for å vise den detaljerte skatteberegningssiden
+        function showDetailedTaxPage() {
+            // Sørg for at de nyeste dataene er beregnet og lagret
+            calculateTax();
+            window.location.href = 'detailed_tax_calculation.html';
+        }
+
+        // Initial formatering av inputfelt og beregning ved lasting av siden
         window.onload = function() {
-            document.querySelectorAll('input[type="text"]').forEach(input => {
-                // Sjekk om data-raw-value allerede er satt (fra initial value)
-                if (!input.dataset.rawValue) {
-                    input.dataset.rawValue = parseFloat(input.value.replace(/[^0-9.]/g, '')) || 0;
-                }
-                formatInputNumber(input); // Formater initial verdi
+            // Initialiser sliders og tekstfelt
+            document.querySelectorAll('input[type="range"]').forEach(slider => {
+                updateSliderValueDisplay(slider); // Vis initial verdi for slideren
             });
+            // Initialiser tekstfelt (Formuesskatt)
+            const wealthTaxInput = document.getElementById('wealthTaxInput');
+            if (!wealthTaxInput.dataset.rawValue) {
+                wealthTaxInput.dataset.rawValue = parseFloat(wealthTaxInput.value.replace(/[^0-9.]/g, '')) || 0;
+            }
+            formatInputNumber(wealthTaxInput);
+
             calculateTax(); // Utfør en initial beregning ved lasting
         };
     </script>
