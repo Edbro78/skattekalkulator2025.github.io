@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard for Finansielle Beregninger</title>
 
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -304,7 +302,7 @@
             font-size: 1.15rem; /* Økt fra 1rem */
         }
         .dashboard-container .space-y-1\.5.bg-slate-800\/60 { /* For detaljresultatene på side 1 */
-            background-color: rgba(30, 41, 59, 0.6); /* Original rgba(0,0,0,0.6) */
+            background-color: rgba(30, 41, 59, 0.6); /* Original rgba(30,41,59,0.6) */
             padding: 0.875rem; /* Økt from 0.75rem */
             border-radius: 0.5rem; /* rounded-lg */
             font-size: 1rem; /* Økt fra 0.875rem */
@@ -773,12 +771,9 @@
 </head>
 <body class="antialiased">
 
-    <!-- Hovedapplikasjon-wrapper -->
     <div id="main-app-wrapper">
 
-        <!-- =========== SIDE 1: FORMUESSKATTKALKULATOR =========== -->
         <div id="page1" class="page active">
-            <!-- Original wrapper fra del 1, inneholder også breddekontroll og sentrering for denne siden -->
             <div class="dashboard-container w-full flex flex-col items-center justify-center p-4 lg:p-8">
                 <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between">
                     <header class="text-center mb-1">
@@ -787,7 +782,6 @@
                     </header>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 flex-grow overflow-hidden">
-                        <!-- Kolonne 1: Input -->
                         <div class="lg:col-span-1 space-y-1.5 flex flex-col overflow-hidden">
                             <div class="bg-[var(--color-card-bg)] p-2 rounded-xl h-full flex flex-col overflow-hidden">
                                 <h2 class="text-base font-semibold text-white border-b border-[var(--color-border)] pb-1 mb-1">Input</h2>
@@ -806,12 +800,10 @@
                                 </div>
                                 <h3 class="text-sm font-semibold text-white border-b border-[var(--color-border)] pb-1 mt-2 mb-1">Eiendeler</h3>
                                 <div id="assets-container" class="space-y-0.5 flex-grow overflow-y-auto custom-scrollbar">
-                                    <!-- Innhold genereres av JS -->
-                                </div>
+                                    </div>
                             </div>
                         </div>
 
-                        <!-- Kolonne 2: Resultater og navigasjon -->
                         <div class="lg:col-span-1 space-y-1.5 flex flex-col overflow-hidden">
                             <div class="bg-[var(--color-card-bg)] p-3 rounded-xl h-full flex flex-col">
                                 <h2 class="text-base font-semibold text-white border-b border-[var(--color-border)] pb-1 mb-1">Resultater</h2>
@@ -824,6 +816,7 @@
                                     <div class="flex justify-between items-center text-slate-300 text-sm"><span>Verdsettelsesrabatt:</span><span id="total-discount" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-slate-300 text-sm"><span>Nettoformue (etter rabatt):</span><span id="net-wealth" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fradragsberettiget gjeld:</span><span id="deductible-debt" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
+                                    <div class="flex justify-between items-center text-slate-300 text-sm"><span>Ikke-fradragsberettiget gjeld (basert på rabatter uten primærbolig):</span><span id="non-deductible-debt-discounts" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-slate-300 text-sm"><span>Fribeløp:</span><span id="tax-free-allowance" class="font-semibold text-white">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-base text-white"><span class="font-medium">Skattegrunnlag:</span><span id="taxable-base" class="font-bold">0 kr</span></div><hr class="border-[var(--color-border)]">
                                     <div class="flex justify-between items-center text-slate-300 mt-1.5 text-sm"><span>Skatteandel av bruttoformue:</span><span id="tax-as-percentage-of-gross" class="font-semibold text-white">0.00 %</span></div>
@@ -840,9 +833,7 @@
             </div>
         </div>
 
-        <!-- =========== SIDE 2: KJØPEKRAFTKALKULATOR =========== -->
         <div id="page2" class="page">
-            <!-- Original wrapper fra del 1, inneholder også breddekontroll og sentrering for denne siden -->
             <div class="dashboard-container w-full flex flex-col items-center justify-center p-4 lg:p-8">
                 <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between">
                     <header class="text-center mb-1">
@@ -857,15 +848,12 @@
                             </div>
 
                             <div class="space-y-1.5 flex-grow overflow-y-auto custom-scrollbar">
-                                <!-- Privatperson Tabell -->
                                 <div id="private-person-table" class="rate-table-container mb-2"></div>
 
-                                <!-- AS Tabell -->
                                 <div id="as-table" class="rate-table-container rate-table-as"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- Navigasjonsknapper for Side 2 -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
                         <div class="lg:col-span-1">
                             <div class="text-center">
@@ -886,11 +874,8 @@
             </div>
         </div>
 
-        <!-- =========== SIDE 3: SKATTEBEREGNING AV LØNN =========== -->
         <div id="page3" class="page">
-            <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between"> <!-- Ny wrapper for breddekonsistens -->
-                <div id="page3-layout" class="w-full h-full flex flex-col lg:flex-row">
-                    <!-- Venstre panel for input -->
+            <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between"> <div id="page3-layout" class="w-full h-full flex flex-col lg:flex-row">
                     <div id="page3-input-panel" class="page3-panel">
                         <h1 class="text-3xl font-bold text-center text-white mb-6">Skattekalkulator 2025</h1>
 
@@ -928,15 +913,13 @@
                         </div>
                     </div>
 
-                    <!-- Høyre panel for resultater -->
                     <div id="page3-output-panel" class="page3-panel">
                         <div id="output-content" class="h-full flex flex-col">
                             <h2 class="text-3xl font-bold text-center mb-6">Dine skatteresultater</h2>
 
                             <div class="section-title">Inntektsberegning</div>
                             <div id="general-income-results" class="flex-grow results-container custom-scrollbar overflow-y-auto">
-                                <!-- Resultater for alminnelig inntekt fylles her -->
-                            </div>
+                                </div>
 
                             <div id="total-tax-container" class="mt-8">
                                 <div id="total-tax"></div>
@@ -946,8 +929,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Navigasjonsknapp for Side 3 tilbake -->
-               <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
                         <div class="lg:col-span-1">
                             <div class="text-center">
                             <button id="goToPage2FromPage3Btn" class="nav-button">
@@ -960,19 +942,15 @@
             </div>
         </div>
 
-        <!-- =========== SIDE 4: DETALJERT SKATTEBEREGNING =========== -->
         <div id="page4" class="page">
-            <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between"> <!-- Ny wrapper for breddekonsistens -->
-                <div class="page4-container w-full h-full flex flex-col justify-between">
+            <div class="w-full max-w-6xl mx-auto h-full flex flex-col justify-between"> <div class="page4-container w-full h-full flex flex-col justify-between">
                     <header class="text-center mb-1">
                         <h1 class="text-xl md:text-2xl font-bold text-white mb-0.5">Detaljert Skatteberegning</h1>
                     </header>
 
-                    <!-- Wrapper for detailed tax output to match the output panel on Page 3 visually -->
                     <div id="detailed-tax-output-wrapper" class="flex-grow rounded-xl custom-scrollbar overflow-y-auto p-2">
                         <div id="detailed-tax-output" class="space-y-1.5 text-sm">
-                            <!-- Detaljerte skatteresultater fylles her dynamisk -->
-                        </div>
+                            </div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
@@ -989,10 +967,7 @@
             </div>
         </div>
 
-    </div> <!-- Slutt main-app-wrapper -->
-
-    <!-- Meldingboks for feil/info -->
-    <div id="message-box" class="hidden">
+    </div> <div id="message-box" class="hidden">
         <p id="message-text"></p>
         <button onclick="hideMessageBox()">OK</button>
     </div>
@@ -1044,7 +1019,8 @@
             taxAsPercentageOfGross: 0, // Formuesskatt som prosentandel av bruttoformue (fra Side 1)
             totalWealthTax: 0,         // Total Formuesskatt (fra Side 1)
             inflationRate: 3.0,        // Forventet inflasjon (fra Side 2)
-            incomeTaxResults: null     // Lagrer resultater fra inntektskalkulatoren for detaljvisning (Side 4)
+            incomeTaxResults: null,    // Lagrer resultater fra inntektskalkulatoren for detaljvisning (Side 4)
+            nonDeductibleDebtBasedOnDiscounts: 0 // Ny verdi for "ikke-fradragsberettiget gjeld"
         };
 
         // --- Side navigasjonsfunksjon ---
@@ -1078,18 +1054,19 @@
                 { id: 'bank-deposits', label: 'Bankinnskudd', value: 1500000, min: 0, max: 10000000, step: 50000 },
                 { id: 'operating-assets', label: 'Driftsmidler', value: 0, min: 0, max: 20000000, step: 50000 },
             ],
-            // Rabattsatser/verdivurderingsfaktorer for ulike eiendelstyper.
+            // Rabattsatser for ulike eiendelstyper (som prosenter).
+            // Disse representerer den direkte rabattprosenten som trekkes fra bruttoverdi.
             discounts: {
-                // For primærbolig: 25% verdivurdering (dvs. 75% rabatt) opp til terskel på 10M, og 70% verdivurdering (dvs. 30% rabatt) over terskel.
-                'primary-residence': { valuation_under_threshold: 0.25, valuation_over_threshold: 0.70 },
-                'holiday-home': 0.70, // 70% verdivurdering
-                'land-plot': 0.70,    // 70% verdivurdering
-                'car-boat': 1,        // 100% verdivurdering (0% rabatt)
-                'limited-company': 0.20, // 20% verdivurdering (80% rabatt)
-                'private-portfolio': 0.20, // 20% verdivurdering (80% rabatt)
-                'secondary-residence': 1, // 100% verdivurdering (0% rabatt)
-                'bank-deposits': 1,        // 100% verdivurdering (0% rabatt)
-                'operating-assets': 0.70, // 70% verdivurdering (30% rabatt)
+                // For primærbolig: 25% verdsettelse betyr 75% rabatt; 70% verdsettelse betyr 30% rabatt.
+                'primary-residence': { discount_under_threshold: 0.75, discount_over_threshold: 0.30 },
+                'holiday-home': 0.30, // 30% rabatt (70% verdsettelse)
+                'land-plot': 0.30,    // 30% rabatt (70% verdsettelse)
+                'car-boat': 0,        // 0% rabatt (100% verdsettelse)
+                'limited-company': 0.20, // 20% rabatt (ditt eksempel for AS/ASK)
+                'private-portfolio': 0.20, // 20% rabatt (ditt eksempel for AS/ASK)
+                'secondary-residence': 0, // 0% rabatt (100% verdsettelse)
+                'bank-deposits': 0,        // 0% rabatt (100% verdsettelse)
+                'operating-assets': 0.30, // 30% rabatt (70% verdsettelse)
             },
             // Applikasjonsstatus, f.eks. antall personer for skatteberegninger.
             state: { personCount: 1 },
@@ -1170,36 +1147,64 @@
                 const highRateThreshold = this.state.personCount === 1 ? 20000000 : 40000000;
                 const grossWealth = Object.values(values.assets).reduce((sum, val) => sum + val, 0);
 
-                let totalValuedWealth = 0;
+                let totalValuedWealth = 0; // Total skattepliktig formue (etter rabatter)
+                let totalDiscountAmount = 0; // Total sum av alle rabattbeløp
+                let primaryResidenceDiscountAmount = 0; // Rabattbeløp for primærbolig alene
 
                 Object.keys(values.assets).forEach(key => {
                     const assetValue = values.assets[key];
-                    let valuedAmount = assetValue;
+                    let currentAssetDiscount = 0; // Rabattbeløp for denne spesifikke eiendelen
+                    let valuedAmount = assetValue; // Initialiser med full brutto verdi
 
                     if (key === 'primary-residence') {
-                        const valFactors = this.discounts[key];
-                        valuedAmount = (Math.min(assetValue, primaryResidenceFixedThreshold) * valFactors.valuation_under_threshold) +
-                                       (Math.max(0, assetValue - primaryResidenceFixedThreshold) * valFactors.valuation_over_threshold);
+                        const discountRates = this.discounts[key]; // Henter rabattsatsene for primærbolig (f.eks. 0.75, 0.30)
+                        
+                        // Beregn rabattbeløp basert på satsene
+                        const discountUnderThreshold = Math.min(assetValue, primaryResidenceFixedThreshold) * discountRates.discount_under_threshold;
+                        const discountOverThreshold = Math.max(0, assetValue - primaryResidenceFixedThreshold) * discountRates.discount_over_threshold;
+                        
+                        currentAssetDiscount = discountUnderThreshold + discountOverThreshold; // Total rabatt for primærbolig
+                        primaryResidenceDiscountAmount = currentAssetDiscount; // Lagrer primærboligrabatten for senere bruk
                     } else {
-                        valuedAmount = assetValue * (typeof this.discounts[key] === 'number' ? this.discounts[key] : 1);
+                        // For andre eiendeler, bruk rabattsatsen direkte
+                        const discountRate = (typeof this.discounts[key] === 'number' ? this.discounts[key] : 0); // Henter rabattsatsen (f.eks. 0.20 for AS)
+                        currentAssetDiscount = assetValue * discountRate; // Rabattbeløpet = Bruttoverdi * Rabattsats
                     }
-                    totalValuedWealth += valuedAmount;
+                    
+                    valuedAmount = assetValue - currentAssetDiscount; // Skattepliktig verdi = Bruttoverdi - Rabattbeløp
+
+                    totalValuedWealth += valuedAmount; // Akkumulerer total skattepliktig formue
+                    totalDiscountAmount += currentAssetDiscount; // Akkumulerer totalt rabattbeløp
                 });
 
-                const totalDiscount = grossWealth - totalValuedWealth;
-                const netWealth = totalValuedWealth;
+                // Beregning av "alle rabatter (ex rabatt på primærbolig)"
+                const allOtherDiscounts = totalDiscountAmount - primaryResidenceDiscountAmount;
 
-                const proportionalDebtShare = grossWealth > 0 ? totalValuedWealth / grossWealth : 0;
-                const deductibleDebt = values.privateDebt * proportionalDebtShare;
+                // --- NY BEREGNING AV FRADRAGSBERETTIGET GJELD HER ---
+                let deductibleDebt = 0;
+                if (grossWealth > 0) { // Unngå divisjon på null
+                    const nonDeductiblePart = (values.privateDebt * allOtherDiscounts) / grossWealth;
+                    deductibleDebt = values.privateDebt - nonDeductiblePart;
+                }
+                deductibleDebt = Math.max(0, deductibleDebt); // Sikrer at gjeldsfradraget ikke blir negativt
+                // --- SLUTT PÅ NY BEREGNING AV FRADRAGSBERETTIGET GJELD ---
+
+                // Beregning av "Ikke-fradragsberettiget gjeld (basert på rabatter uten primærbolig)" for visning
+                // Dette er nå en konsekvens av den nye deductibleDebt formelen
+                const nonDeductibleDebtBasedOnDiscounts = values.privateDebt - deductibleDebt;
+
+
+                const netWealth = totalValuedWealth; // Netto formue er den totalt verdsatte formuen
 
                 const taxableBase = Math.max(0, netWealth - taxFreeAllowance - deductibleDebt);
                 const totalWealthTax = (Math.min(taxableBase, highRateThreshold) * 0.01) + (Math.max(0, taxableBase - highRateThreshold) * 0.011);
 
                 sharedData.taxAsPercentageOfGross = grossWealth > 0 ? (totalWealthTax / grossWealth) : 0;
-                sharedData.totalWealthTax = totalWealthTax; // Oppdater global verdi
-                sharedData.inflationRate = values.inflationRate; // Oppdater global verdi
+                sharedData.totalWealthTax = totalWealthTax;
+                sharedData.inflationRate = values.inflationRate;
+                sharedData.nonDeductibleDebtBasedOnDiscounts = nonDeductibleDebtBasedOnDiscounts; // Lagrer for visning
 
-                this.updatePage1UI({grossWealth, totalDiscount, netWealth, deductibleDebt, taxFreeAllowance, taxableBase, totalWealthTax});
+                this.updatePage1UI({grossWealth, totalDiscount: totalDiscountAmount, netWealth, deductibleDebt, taxFreeAllowance, taxableBase, totalWealthTax});
             },
 
             // Oppdaterer visningselementene på side 1 med beregnede resultater.
@@ -1208,6 +1213,7 @@
                 document.getElementById('total-discount').textContent = formatCurrency(results.totalDiscount, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                 document.getElementById('net-wealth').textContent = formatCurrency(results.netWealth, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                 document.getElementById('deductible-debt').textContent = formatCurrency(results.deductibleDebt, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                document.getElementById('non-deductible-debt-discounts').textContent = formatCurrency(sharedData.nonDeductibleDebtBasedOnDiscounts, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                 document.getElementById('tax-free-allowance').textContent = formatCurrency(results.taxFreeAllowance, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                 document.getElementById('taxable-base').textContent = formatCurrency(results.taxableBase, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                 document.getElementById('total-wealth-tax').textContent = formatCurrency(results.totalWealthTax, { minimumFractionDigits: 0, maximumFractionDigits: 0 }); /* Fjerner desimaler for Total Formuesskatt */
@@ -1454,7 +1460,7 @@
                 let trinnskatt = 0;
                 let trinnskattDetails = [];
                 // 'income' is the total personal income used for step tax calculation.
-                let incomeForStepTax = income; 
+                let incomeForStepTax = income;  
                 let trinnskatt_display_counter = 0; // Counter for displaying the tier number correctly
 
                 for (let i = 0; i < self.TAX_RATES_2025.trinnskatt_trinn.length; i++) {
