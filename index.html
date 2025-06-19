@@ -373,7 +373,7 @@
             transition: background-color 0.2s;
         }
         .dashboard-container button:hover {
-            background-color: var(--color-button-hover); /* blue-700 fra original */
+            background-color: var(--color-button-hover);
         }
 
         /* NEW: Unified style for all navigation buttons */
@@ -395,7 +395,7 @@
         }
 
         .nav-button:hover {
-            background-color: var(--color-button-hover); /* blue-700 */
+            background-color: var(--color-button-hover);
             transform: translateY(-3px); /* Subtle lift effect on hover */
             /* Enhanced shadow on hover */
             box-shadow: 0 12px 20px var(--color-nav-button-shadow-dark), 0 0 18px var(--color-nav-button-shadow-glow);
@@ -1088,7 +1088,7 @@
                 'limited-company': 0.20, // 20% verdivurdering (80% rabatt)
                 'private-portfolio': 0.20, // 20% verdivurdering (80% rabatt)
                 'secondary-residence': 1, // 100% verdivurdering (0% rabatt)
-                'bank-deposits': 1,       // 100% verdivurdering (0% rabatt)
+                'bank-deposits': 1,        // 100% verdivurdering (0% rabatt)
                 'operating-assets': 0.70, // 70% verdivurdering (30% rabatt)
             },
             // Applikasjonsstatus, f.eks. antall personer for skatteberegninger.
@@ -1306,12 +1306,12 @@
                 trygdeavgift_nedre_grense: 99650,
                 aksjeinntekt_skattesats: 0.378, // 37,8% (22% * 1.72 - for 2025)
                 trinnskatt_trinn: [
-                    { grense: 217400, sats: 0.000 },
-                    { grense: 306050, sats: 0.017 },
-                    { grense: 697150, sats: 0.040 },
-                    { grense: 942400, sats: 0.137 },
-                    { grense: 1410750, sats: 0.167 },
-                    { grense: Infinity, sats: 0.177 }
+                    { grense: 217400, sats: 0.000 }, // Income up to 217,400 kr has 0% step tax
+                    { grense: 306050, sats: 0.017 }, // 1.7% for income from 217,401 kr to 306,050 kr (Trinn 1)
+                    { grense: 697150, sats: 0.040 }, // 4.0% for income from 306,051 kr to 697,150 kr (Trinn 2)
+                    { grense: 942400, sats: 0.137 }, // 13.7% for income from 697,151 kr to 942,400 kr (Trinn 3)
+                    { grense: 1410750, sats: 0.167 },// 16.7% for income from 942,401 kr to 1,410,750 kr (Trinn 4)
+                    { grense: Infinity, sats: 0.177 } // 17.7% for income above 1,410,751 kr (Trinn 5)
                 ]
             },
 
@@ -1368,7 +1368,7 @@
                         formattedValue += ',' + decimalPart; // Legg til faktisk desimaldel med komma
                     }
                 } else if (isCommaPresent && rawValue.charAt(rawValue.length - 1) === ',') {
-                     formattedValue += ','; // Hvis original input hadde et komma på slutten, bevar det
+                            formattedValue += ','; // Hvis original input hadde et komma på slutten, bevar det
                 }
 
 
@@ -1448,32 +1448,44 @@
                 totalTax += trygdeavgift;
 
                 // --- Beregn Trinnskatt ---
+                // This logic correctly calculates progressive step tax.
+                // For each tier, it identifies the portion of the total income ('income' variable)
+                // that falls within that specific tier's boundaries and applies the corresponding rate.
                 let trinnskatt = 0;
                 let trinnskattDetails = [];
-                let resterendeInntektForTrinnskatt = income;
+                // 'income' is the total personal income used for step tax calculation.
+                let incomeForStepTax = income; 
+                let trinnskatt_display_counter = 0; // Counter for displaying the tier number correctly
 
                 for (let i = 0; i < self.TAX_RATES_2025.trinnskatt_trinn.length; i++) {
                     const trinn = self.TAX_RATES_2025.trinnskatt_trinn[i];
+                    // The lower boundary for the current tier. For the first tier (i=0), it's 0.
+                    // Otherwise, it's the upper boundary of the previous tier.
                     const prevTrinnGrense = (i === 0) ? 0 : self.TAX_RATES_2025.trinnskatt_trinn[i - 1].grense;
+                    // The width of the current tax tier.
                     const trinnIntervall = trinn.grense - prevTrinnGrense;
 
-                    let skattepliktigIPassendeTrinn = 0;
+                    let taxableAmountInCurrentTier = 0;
 
-                    if (resterendeInntektForTrinnskatt > prevTrinnGrense) {
-                        if (resterendeInntektForTrinnskatt <= trinn.grense) {
-                            skattepliktigIPassendeTrinn = resterendeInntektForTrinnskatt - prevTrinnGrense;
+                    // Calculate how much of the 'incomeForStepTax' falls into the current tier.
+                    // This is the minimum of (total income, current tier's upper limit) minus the current tier's lower limit.
+                    if (incomeForStepTax > prevTrinnGrense) {
+                        if (incomeForStepTax <= trinn.grense) {
+                            taxableAmountInCurrentTier = incomeForStepTax - prevTrinnGrense;
                         } else {
-                            skattepliktigIPassendeTrinn = trinnIntervall;
+                            taxableAmountInCurrentTier = trinnIntervall;
                         }
                     }
 
-                    const skattForTrinn = skattepliktigIPassendeTrinn * trinn.sats;
-                    trinnskatt += skattForTrinn;
+                    const taxForTier = taxableAmountInCurrentTier * trinn.sats;
+                    trinnskatt += taxForTier;
 
-                    if (skattForTrinn > 0.01 && trinn.sats > 0) {
+                    // Add details for non-zero tax tiers with a rate > 0
+                    if (taxForTier > 0.01 && trinn.sats > 0) {
+                        trinnskatt_display_counter++; // Increment only for taxable tiers
                         trinnskattDetails.push({
-                            label: `Trinnskatt Trinn ${i + 1} (${(trinn.sats * 100).toFixed(1)}%) (av ${formatCurrency(skattepliktigIPassendeTrinn, {minimumFractionDigits: 0, maximumFractionDigits: 0})})`,
-                            amount: skattForTrinn
+                            label: `Trinnskatt Trinn ${trinnskatt_display_counter} (${(trinn.sats * 100).toFixed(1)}%) (av ${formatCurrency(taxableAmountInCurrentTier, {minimumFractionDigits: 0, maximumFractionDigits: 0})})`,
+                            amount: taxForTier
                         });
                     }
                 }
