@@ -35,10 +35,16 @@
             --color-person-btn-inactive-text: #CBD5E1; /* slate-300 (person button inactive text) */
             --color-table-as-bg: #1e3a8a; /* Specific AS table background */
 
-            /* Global shadows for consistency (matching Del 1/2 button shadow) */
+            /* Global shadows for consistency */
             --global-shadow-light: rgba(0,0,0,0.1);
             --global-shadow-medium: rgba(0,0,0,0.3);
-            /* --global-shadow-accent: rgba(106, 155, 253, 0.3); removed as it won't be used now */
+
+            /* Added global white text color for explicit use */
+            --global-color-text-white: #FFFFFF;
+
+            /* Custom shadow colors for navigation buttons */
+            --color-nav-button-shadow-dark: rgba(0, 0, 0, 0.4);
+            --color-nav-button-shadow-glow: rgba(96, 165, 250, 0.3); /* Using accent-light for a blue glow */
         }
 
         /* --- Generelle Stiler for hele applikasjonen (html, body, main-app-wrapper) --- */
@@ -353,7 +359,7 @@
             padding: 0.4rem 0.5rem; /* Justert padding */
         }
 
-        /* Knapper for side 1/2 (spesifikk stil fra original kode) */
+        /* Knapper for side 1/2 (spesifikk stil fra original kode - will be overridden by nav-button for navigation) */
         .dashboard-container button {
             background-color: var(--color-button-primary); /* blue-600 fra original */
             color: var(--global-color-text-white);
@@ -362,10 +368,45 @@
             border-radius: 0.5rem; /* rounded-lg */
             box-shadow: 0 4px 6px var(--global-shadow-light); /* shadow-md */
             font-size: 0.875rem; /* text-sm */
+            border: none; /* Ensure no default button border */
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
         .dashboard-container button:hover {
             background-color: var(--color-button-hover); /* blue-700 fra original */
         }
+
+        /* NEW: Unified style for all navigation buttons */
+        .nav-button {
+            display: block; /* Ensures full width */
+            width: 100%; /* Ensures full width */
+            background-color: var(--color-button-primary); /* blue-600 */
+            color: var(--global-color-text-white); /* White text */
+            font-weight: 700; /* font-bold */
+            padding: 0.75rem 1.5rem; /* py-3 px-6 - larger padding for better touch/click area */
+            border-radius: 0.75rem; /* rounded-xl - more rounded corners */
+            /* Deeper shadow with a subtle blue glow from accent color */
+            box-shadow: 0 8px 15px var(--color-nav-button-shadow-dark), 0 0 12px var(--color-nav-button-shadow-glow);
+            font-size: 1.125rem; /* text-lg - slightly larger text for prominence */
+            transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+            text-align: center;
+            cursor: pointer;
+            border: none; /* Remove default button border */
+        }
+
+        .nav-button:hover {
+            background-color: var(--color-button-hover); /* blue-700 */
+            transform: translateY(-3px); /* Subtle lift effect on hover */
+            /* Enhanced shadow on hover */
+            box-shadow: 0 12px 20px var(--color-nav-button-shadow-dark), 0 0 18px var(--color-nav-button-shadow-glow);
+        }
+
+        .nav-button:active {
+            transform: translateY(0); /* "Press down" effect on click */
+            /* Smaller shadow on active state */
+            box-shadow: 0 5px 10px var(--color-nav-button-shadow-dark), 0 0 10px var(--color-nav-button-shadow-glow);
+        }
+
 
         /* === STILER FOR DEL 3 OG DEL 4 (SKATTEBEREGNING LØNN & DETALJERT SKATTEBEREGNING) === */
         /* Disse stilene er nå unifisert med fargepaletten fra del 1/2 */
@@ -628,10 +669,10 @@
             font-size: 1.1rem;
             border-top: none;
         }
-        /* Knapper på side 4 matcher side 3 knapper (og nå side 1/2 knapper) */
+        /* Buttons on page 4 (will also be nav-buttons) */
         .page4-container button {
-            background-color: var(--color-button-primary); /* blue-600 fra del 1/2 */
-            box-shadow: 0 4px 6px var(--global-shadow-light); /* shadow-md fra del 1/2 */
+            background-color: var(--color-button-primary); /* blue-600 from del 1/2 */
+            box-shadow: 0 4px 6px var(--global-shadow-light); /* shadow-md from del 1/2 */
         }
         .page4-container button:hover { background-color: var(--color-button-hover); }
 
@@ -657,7 +698,13 @@
             .dashboard-container input[type="range"]::-moz-range-thumb { width: 10px; height: 10px; margin-top: -3.5px; }
             .dashboard-container .slider-value { font-size: 0.8rem; } /* Justert */
             .dashboard-container .person-btn { padding: 0.2rem 0.6rem; font-size: 0.8rem; } /* Justert */
-            .dashboard-container button { padding: 0.5rem 0.75rem; font-size: 0.875rem; } /* Justert */
+
+            /* Nav-button adjustments for medium screens */
+            .nav-button {
+                padding: 0.6rem 1rem; /* py-2.5 px-4 */
+                font-size: 1rem; /* text-base */
+                border-radius: 0.6rem; /* slightly less rounded */
+            }
 
             .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.7rem; gap: 0.2rem; } /* Justert */
             .dashboard-container .rate-table-container { padding: 0.3rem; }
@@ -671,7 +718,6 @@
             .page3-panel input[type="range"]::-webkit-slider-thumb,
             .page3-panel input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; }
             .page3-panel .slider-value { font-size: 0.8rem; }
-            .page3-panel button { padding: 0.7rem 1rem; font-size: 0.9rem; }
             .page3-panel .result-item, .page4-container #detailed-tax-output .result-item { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
             #total-tax { font-size: 1.8rem; }
             #total-tax-label { font-size: 0.9rem; }
@@ -697,7 +743,13 @@
             .dashboard-container input[type="range"]::-moz-range-thumb { width: 8px; height: 8px; margin-top: -3.25px; }
             .dashboard-container .slider-value { font-size: 0.75rem; } /* Justert */
             .dashboard-container .person-btn { padding: 0.15rem 0.3rem; font-size: 0.75rem; } /* Justert */
-            .dashboard-container button { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
+
+            /* Nav-button adjustments for small screens */
+            .nav-button {
+                padding: 0.5rem 0.8rem; /* py-2 px-3 */
+                font-size: 0.9rem; /* text-sm */
+                border-radius: 0.5rem;
+            }
 
             .dashboard-container .rate-table-header, .dashboard-container .rate-table-row { font-size: 0.65rem; gap: 0.1rem; } /* Justert */
             .dashboard-container .rate-table-container { padding: 0.2rem; }
@@ -711,7 +763,6 @@
             .page3-panel input[type="range"]::-webkit-slider-thumb,
             .page3-panel input[type="range"]::-moz-range-thumb { width: 14px; height: 14px; }
             .page3-panel .slider-value { font-size: 0.7rem; }
-            .page3-panel button { padding: 0.5rem 0.8rem; font-size: 0.8rem; }
             .page3-panel .result-item, .page4-container #detailed-tax-output .result-item { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
             #total-tax { font-size: 1.3rem; }
             #total-tax-label { font-size: 0.7rem; }
@@ -778,7 +829,7 @@
                                     <div class="flex justify-between items-center text-slate-300 mt-1.5 text-sm"><span>Skatteandel av bruttoformue:</span><span id="tax-as-percentage-of-gross" class="font-semibold text-white">0.00 %</span></div>
                                 </div>
                                 <div class="mt-auto pt-2 text-center">
-                                    <button id="goToPage2Btn" class="w-full">
+                                    <button id="goToPage2Btn" class="nav-button">
                                         Analyser kjøpekraft →
                                     </button>
                                 </div>
@@ -818,14 +869,14 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
                         <div class="lg:col-span-1">
                             <div class="text-center">
-                                <button id="goToPage1FromPage2Btn" class="w-full">
+                                <button id="goToPage1FromPage2Btn" class="nav-button">
                                     ← tilbake til Formuesskatt
                                 </button>
                             </div>
                         </div>
                         <div class="lg:col-span-1">
                             <div class="text-center">
-                                <button id="goToPage3FromPage2Btn" class="w-full">
+                                <button id="goToPage3FromPage2Btn" class="nav-button">
                                     Skatteberegning Lønn →
                                 </button>
                             </div>
@@ -873,7 +924,7 @@
                         </div>
 
                         <div class="flex flex-col gap-4 mt-auto">
-                            <button id="show-detailed-tax-btn" class="w-full">Vis detaljert skatteberegning</button>
+                            <button id="show-detailed-tax-btn" class="nav-button">Vis detaljert skatteberegning</button>
                         </div>
                     </div>
 
@@ -882,7 +933,7 @@
                         <div id="output-content" class="h-full flex flex-col">
                             <h2 class="text-3xl font-bold text-center mb-6">Dine skatteresultater</h2>
 
-                            <div class="section-title">Inntektsberegning</div> <!-- Endret tekst her -->
+                            <div class="section-title">Inntektsberegning</div>
                             <div id="general-income-results" class="flex-grow results-container custom-scrollbar overflow-y-auto">
                                 <!-- Resultater for alminnelig inntekt fylles her -->
                             </div>
@@ -899,7 +950,7 @@
                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
                         <div class="lg:col-span-1">
                             <div class="text-center">
-                            <button id="goToPage2FromPage3Btn" class="w-full">
+                            <button id="goToPage2FromPage3Btn" class="nav-button">
                                 ← tilbake til Kjøpekraft
                             </button>
                         </div>
@@ -927,7 +978,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-auto pt-2">
                         <div class="lg:col-span-1">
                             <div class="text-center">
-                                <button id="goToPage3FromPage4Btn" class="w-full">
+                                <button id="goToPage3FromPage4Btn" class="nav-button">
                                     ← Tilbake til Skattekalkulator
                                 </button>
                             </div>
@@ -1037,7 +1088,7 @@
                 'limited-company': 0.20, // 20% verdivurdering (80% rabatt)
                 'private-portfolio': 0.20, // 20% verdivurdering (80% rabatt)
                 'secondary-residence': 1, // 100% verdivurdering (0% rabatt)
-                'bank-deposits': 1,      // 100% verdivurdering (0% rabatt)
+                'bank-deposits': 1,       // 100% verdivurdering (0% rabatt)
                 'operating-assets': 0.70, // 70% verdivurdering (30% rabatt)
             },
             // Applikasjonsstatus, f.eks. antall personer for skatteberegninger.
